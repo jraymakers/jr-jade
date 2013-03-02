@@ -1,0 +1,20 @@
+{
+  "name": "jr-jade",
+  "description": "A JR job for jade.",
+  "keywords": ["jr", "jade"],
+  "author": "Jeff Raymakers",
+  "version": "0.0.1",
+  "main": "./lib/jr-jade.js",
+  "dependencies": {
+    "async": "0.2.x",
+    "fs-extra": "0.5.x",
+    "jade": "0.28.x"
+  },
+  "devDependencies": {
+    "mocha": "1.8.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jraymakers/jr-jade.git"
+  }
+}
