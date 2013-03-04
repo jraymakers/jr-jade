@@ -16,6 +16,22 @@ describe('jr-jade', function () {
     ], done);
   });
 
+  it('should produce no output files for no input files', function (done) {
+    async.waterfall([
+      async.apply(fse.mkdir, inDir),
+      async.apply(jrJade, { inDir: inDir, outDir: outDir }),
+      function (cb) {
+        fs.exists(outDir, function (exists) {
+          if (exists) {
+            cb(new Error('Output directory exists, but it should not.'));
+          } else {
+            cb();
+          }
+        });
+      }
+    ], done);
+  });
+
   it('should produce the correct output file for a single input file', function (done) {
     async.waterfall([
       async.apply(fse.outputFile, path.join(inDir, 'basic.jade'), 'p basic jade file'),
@@ -55,18 +71,26 @@ describe('jr-jade', function () {
     ], done);
   });
 
-  it('should produce no output files for no input files', function (done) {
+  it('should handle include correctly', function (done) {
     async.waterfall([
-      async.apply(fse.mkdir, inDir),
+      async.apply(fse.outputFile, path.join(inDir, 'parent.jade'), 'div\n  include child'),
+      async.apply(fse.outputFile, path.join(inDir, 'child.jade'), 'p child'),
       async.apply(jrJade, { inDir: inDir, outDir: outDir }),
-      function (cb) {
-        fs.exists(outDir, function (exists) {
-          if (exists) {
-            cb(new Error('Output directory exists, but it should not.'));
-          } else {
-            cb();
-          }
-        });
+      async.apply(fs.readFile, path.join(outDir, 'parent.html'), 'utf-8'),
+      function (data, cb) {
+        if (data === '<div><p>child</p></div>') {
+          cb();
+        } else {
+          cb(new Error('Unexpected output files contents: ' + data));
+        }
+      },
+      async.apply(fs.readFile, path.join(outDir, 'child.html'), 'utf-8'),
+      function (data, cb) {
+        if (data === '<p>child</p>') {
+          cb();
+        } else {
+          cb(new Error('Unexpected output files contents: ' + data));
+        }
       }
     ], done);
   });

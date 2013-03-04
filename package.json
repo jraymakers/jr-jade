@@ -3,12 +3,13 @@
   "description": "A JR job for jade.",
   "keywords": ["jr", "jade"],
   "author": "Jeff Raymakers",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./lib/jr-jade.js",
   "dependencies": {
     "async": "0.2.x",
     "fs-extra": "0.5.x",
-    "jade": "0.28.x"
+    "jade": "0.28.x",
+    "xtend": "2.0.x"
   },
   "devDependencies": {
     "mocha": "1.8.x"
