@@ -3,12 +3,12 @@
   "description": "A JR job for jade.",
   "keywords": ["jr", "jade"],
   "author": "Jeff Raymakers",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "./lib/jr-jade.js",
   "dependencies": {
     "async": "0.2.x",
     "fs-extra": "0.6.x",
-    "jade": "0.28.x",
+    "jade": "0.32.x",
     "xtend": "2.0.x"
   },
   "devDependencies": {
